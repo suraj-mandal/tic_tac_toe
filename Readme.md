@@ -1,4 +1,4 @@
-###### TIC TAC TOE GAME
+# TIC TAC TOE GAME
 
 _This is that same old two player tic tac toe game implemented in python version 3.6.6_
 
