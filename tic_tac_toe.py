@@ -31,7 +31,7 @@ def player_input() -> None:
             break
 
 
-def place_marker(board, marker, position):
+def place_marker(board: list, marker: str, position: int) -> None:
     board[position] = marker
 
 
