@@ -1,6 +1,7 @@
 # program to play the tic tac toe game in python
 
 import sys
+from colorama import Fore
 
 player_scores = {
     'PLAYER 1': 0,
@@ -16,17 +17,17 @@ player_dict = {
 def display_board(board: list) -> None:
     print("-------------")
     for i in range(1, 10, 3):
-        print("|   |   |   |")
-        print(f"| {board[i]} | {board[i + 1]} | {board[i + 2]} |")
-        print("|   |   |   |")
-        print("-------------")
+        print(Fore.BLUE+"|   |   |   |")
+        print(Fore.BLUE + f"| {board[i]} | {board[i + 1]} | {board[i + 2]} |")
+        print(Fore.BLUE + "|   |   |   |")
+        print(Fore.BLUE + "-------------")
 
 
 def player_input() -> None:
     while True:
-        marker = input("Enter your marker (X or O) : ")
+        marker = input(Fore.CYAN+"Enter your marker (X or O) : ")
         if marker.upper() not in ['X', 'O']:
-            print("Sorry! You have not chosen the correct marker! Please try again")
+            print(Fore.RED+"Sorry! You have not chosen the correct marker! Please try again")
         else:
             break
 
@@ -56,13 +57,13 @@ def full_board_check(board: list) -> bool:
 
 def player_choice(board: list) -> int:
     while True:
-        position = int(input("Enter the position to place the marker (1 - 9) : "))
+        position = int(input(Fore.CYAN+"Enter the position to place the marker (1 - 9) : "))
         if position > 9 or position < 1:
-            print("That is not the correct position -> please fill the position correctly!")
+            print(Fore.RED+"That is not the correct position -> please fill the position correctly!")
         if space_check(board, position):
             return position
         else:
-            print("Sorry that position is already filled up in the board")
+            print(Fore.LIGHTMAGENTA_EX+"Sorry that position is already filled up in the board")
 
 
 def game_reset() -> None:
@@ -72,7 +73,7 @@ def game_reset() -> None:
     
 def replay() -> bool:
     game_reset()
-    choice = input("Do you want to play again ? (Y/N) : ")
+    choice = input(Fore.CYAN+"Do you want to play again ? (Y/N) : ")
     return choice.upper() == 'Y'
 
 
@@ -80,17 +81,17 @@ def player_game_logic(player_name: str, board: list, match: int) -> bool:
 
     found_win = False
     # implementing game logic for the player
-    print(f"----- {player_name} TURN------ ")
+    print(Fore.LIGHTYELLOW_EX+f"----- {player_name} TURN------ ")
 
     marker_position = player_choice(board)
     place_marker(board, player_dict[player_name], marker_position)
 
-    print("----- Current state of the board -----")
+    print(Fore.GREEN+"----- Current state of the board -----")
     display_board(board)
 
     # case if the player wins
     if win_check(board, player_dict[player_name]):
-        print(f"{player_name} has won match {match}")
+        print(Fore.MAGENTA+f"{player_name} has won match {match}")
         player_scores[player_name] += 2
         found_win = True
 
@@ -101,8 +102,8 @@ def init_board() -> list:
     board = ['#']
     for i in range(9):
         board.append(' ')
-    print("Setting up the board")
-    print("Current status of the board ")
+    print(Fore.LIGHTGREEN_EX+"Setting up the board")
+    print(Fore.LIGHTGREEN_EX+"Current status of the board ")
     display_board(board)
     return board
 
@@ -110,14 +111,14 @@ def init_board() -> list:
 def game_init_display() -> None:
     # game setup
     print()
-    print("----------------------------------")
-    print("Welcome players abroad !!!!")
+    print(Fore.LIGHTBLUE_EX+"----------------------------------")
+    print(Fore.LIGHTBLUE_EX+"Welcome players abroad !!!!")
 
-    print("Markers are as follows : ")
-    print("PLAYER 1 -> X")
-    print("PLAYER 2 -> O")
+    print(Fore.LIGHTBLUE_EX+"Markers are as follows : ")
+    print(Fore.LIGHTBLUE_EX+"PLAYER 1 -> X")
+    print(Fore.LIGHTBLUE_EX+"PLAYER 2 -> O")
 
-    print("----------------------------------")
+    print(Fore.LIGHTBLUE_EX+"----------------------------------")
     print()
     player_input()
 
@@ -129,15 +130,15 @@ if __name__ == '__main__':
 
     while True:
 
-        print("------------ WELCOME TO TIC TAC TOE -------------")
+        print(Fore.LIGHTCYAN_EX+"------------ WELCOME TO TIC TAC TOE -------------")
         print()
-        print("RULES : ")
-        print("1. Bet is the number of games that are played")
-        print("1. Marker once chosen at the start of the game cannot be changed -> CHOOSE CAREFULLY")
-        print("2. The above is the only rule :)")
+        print(Fore.GREEN+"RULES : ")
+        print(Fore.LIGHTBLUE_EX+"1. Bet is the number of games that are played")
+        print(Fore.LIGHTBLUE_EX+"1. Marker once chosen at the start of the game cannot be changed -> CHOOSE CAREFULLY")
+        print(Fore.LIGHTBLUE_EX+"2. The above is the only rule :)")
         print()
         print()
-        bet = int(input("Enter your bet : "))
+        bet = int(input(Fore.CYAN+"Enter your bet : "))
         current_round = 1
 
         game_init_display()
@@ -147,7 +148,7 @@ if __name__ == '__main__':
             # the game will continue from here
             print()
             print()
-            print(f"--------------- GAME {current_round} -------------------")
+            print(Fore.GREEN+f"--------------- GAME {current_round} -------------------")
             play_board = init_board()
 
             while True:
@@ -157,7 +158,7 @@ if __name__ == '__main__':
 
                 # case when the entire board is filled up and there is no win
                 if full_board_check(play_board):
-                    print(f"The entire board is filled up... Game {current_round} IS A DRAW")
+                    print(Fore.MAGENTA+f"The entire board is filled up... Game {current_round} IS A DRAW")
                     player_scores['PLAYER 1'] += 1
                     player_scores['PLAYER 2'] += 1
                     break
@@ -166,11 +167,11 @@ if __name__ == '__main__':
                 if player_game_logic('PLAYER 2', play_board, current_round):
                     break
 
-            print("********************************************")
-            print(f"--- GAME {current_round} SUMMARY ---")
-            print(f"PLAYER 1 SCORE: {player_scores['PLAYER 1']}")
-            print(f"PLAYER 2 SCORE: {player_scores['PLAYER 2']}")
-            print("********************************************")
+            print(Fore.CYAN+"********************************************")
+            print(Fore.BLUE+f"--- GAME {current_round} SUMMARY ---")
+            print(Fore.GREEN+f"PLAYER 1 SCORE: {player_scores['PLAYER 1']}")
+            print(Fore.GREEN+f"PLAYER 2 SCORE: {player_scores['PLAYER 2']}")
+            print(Fore.CYAN+"********************************************")
 
             current_round += 1
 

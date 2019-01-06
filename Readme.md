@@ -11,6 +11,6 @@ _This is that same old two player tic tac toe game implemented in python version
 
 1.  Make sure you have python 3.5 or later installed in your machine and visible in the path.
 2.  Download this project and move into the root folder
-3.  Run `python tic_tac_toe.py`
+3.  Run `python3 tic_tac_toe.py`
 4.  Enjoy!!!
 
